@@ -24,10 +24,12 @@ func NewRepo(a *config.AppConfig) *Repository {
 	return &Repository{App: a}
 }
 
-// Newhanlders sets the repository for the handlers
+// Newhandlers sets the repository for the handlers
 func NewHandlers(r *Repository) {
 	Repo = r
 }
+
+// So I get to use all the handlers of this package using the business logic as before, the repo variable gets all the methods from the handler.go package and makes them accesible to the main.go file.
 
 // This method is responisble of handling the business logic that is performed every time the user enters in the home page of the project. In this case. This method can render the html via the render.RenderTemplate function and passes data around using the models.TemplateData struct.
 func (repos *Repository) Home(w http.ResponseWriter, r *http.Request) {

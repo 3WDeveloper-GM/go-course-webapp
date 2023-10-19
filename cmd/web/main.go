@@ -12,10 +12,10 @@ import (
 	"github.com/alexedwards/scs/v2"
 )
 
-const portnumber = ":9060"
+const portnumber = ":9060" //The port number for the application
 
-var app config.AppConfig
-var session *scs.SessionManager
+var app config.AppConfig        //I'm using this variable to make a web-app wide configuration across all the files.
+var session *scs.SessionManager // This variable stores the sessions.
 
 func main() {
 
@@ -43,22 +43,11 @@ func main() {
 	// This value is assigned in order to use the cached version of my webfiles (faster, but i cannot edit the html files in order to hot reload the websites, or creating a new version of the cache in order to reload the websites every time I reload the web page.)
 	app.UseCache = false
 
-	repo := handlers.NewRepo(&app)
+	repo := handlers.NewRepo(&app) // I think this line makes the handlers.go methods accesible to the main.go file.
 
 	handlers.NewHandlers(repo)
 
 	render.NewTemplates(&app)
-
-	// Handling functions, this ones create sort of the web pages
-	// and the things the web pages do, in this case, we are
-	// printing a message into the browser and then printing
-	// the number of bytes written into the browser in the console.
-	//http.HandleFunc("/", handlers.Repo.Home)
-	//http.HandleFunc("/about", handlers.Repo.About)
-
-	// This line just initializes the web server in order to listen
-	// to requests and serve content, quite neat, just one line.
-	//_ = http.ListenAndServe(portnumber, nil)
 
 	srv := &http.Server{
 		Addr:    portnumber,
